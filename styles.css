@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Montserrat:wght@700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #1a2a23;
+    /* FUNDO DE RADAR GIGANTE */
+    background-image: 
+        repeating-radial-gradient(circle at center, transparent 0, transparent 80px, rgba(47, 252, 190, 0.05) 81px, rgba(47, 252, 190, 0.05) 82px),
+        linear-gradient(rgba(47, 252, 190, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(47, 252, 190, 0.02) 1px, transparent 1px);
+    background-size: 100% 100%, 40px 40px, 40px 40px;
+    overflow: hidden;
+}
+
+.calculator {
+    background: linear-gradient(145deg, #5a7065, #3a4a42);
+    border-radius: 35px;
+    padding: 25px;
+    width: 360px;
+    border: 5px solid #6c8c7c;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+    z-index: 11;
+}
+
+.calculator.on {
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 30px rgba(47, 252, 190, 0.2);
+}
+
+#display {
+    width: 100%;
+    height: 100px;
+    background-color: #0A261D;
+    color: #2FFCBE;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5rem;
+    text-align: right;
+    border: 4px solid #1a2a23;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: inset 0 0 20px #000;
+    opacity: 0.1; /* Quase desligado */
+    transition: all 0.5s ease;
+}
+
+.calculator.on #display {
+    opacity: 1;
+    text-shadow: 0 0 10px #2FFCBE;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.btn {
+    padding: 18px;
+    font-size: 1.2rem;
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    border-radius: 12px;
+    background: #2c3e59;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 5px #141d2b;
+    transition: 0.1s;
+}
+
+.btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px #141d2b;
+}
+
+.equal {
+    grid-column: span 2; /* Centraliza ocupando dois espaços */
+    background: radial-gradient(circle at center, #ffed85, #FDC830);
+    color: #333;
+    border-radius: 30px;
+    box-shadow: 0 5px #bf8e1a;
+}
+
+.power-btn {
+    background: #1a2a23;
+    border: 2px solid #2FFCBE;
+    color: #2FFCBE;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.power-btn.active {
+    background: #2FFCBE;
+    color: #1a2a23;
+    box-shadow: 0 0 15px #2FFCBE;
+}
+
+/* ESTILO DO PONTO VIAJANTE */
+#radar-point {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, #ff5f6d, #ffc371);
+    border-radius: 50%;
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: 0 0 20px #ff5f6d;
+    transition: opacity 0.5s, top 3s ease-in-out, left 3s ease-in-out;
+}
+
+body:has(.calculator.on) #radar-point {
+    opacity: 1;
+}
