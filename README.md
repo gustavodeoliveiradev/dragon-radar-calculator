@@ -9,19 +9,21 @@ Este projeto segue a filosofia de **melhoria contínua**. Novas funcionalidades 
 
 ## 🛠️ Tecnologias Utilizadas
 - **HTML5** (Estrutura semântica)
-- **CSS3** (Grid Layout, Custom Properties e Radial Gradients)
-- **JavaScript ES6+** (Arrow Functions e lógica de animação)
+- **CSS3** (Grid Layout, Custom Properties, Radial Gradients e Keyframes)
+- **JavaScript ES6+** (Arrow Functions, Operadores Ternários e DOM Manipulation)
 
 ## 🌟 Funcionalidades Atuais
 - **Interface Imersiva:** Design metálico com estética de radar.
-- **Botão Power:** Ativa/Desativa o radar com efeitos de opacidade.
-- **Easter Egg:** Ponto do radar navegando aleatoriamente pelo plano de fundo (navegação em background com `z-index`).
-- **Layout Responsivo:** Ajustado para uma experiência de calculadora real.
+- **Display Inteligente:** Tela com grade quadriculada e animação de "pulso" de energia (Glow Pulse).
+- **Sistema de Energia:** Botão dinâmico ON/OFF que alterna o estado da aplicação.
+- **Easter Egg:** Ponto do radar navegando aleatoriamente pelo plano de fundo, simulando a busca pelas Esferas do Dragão.
+- **Layout Responsivo:** Estrutura em Grid ajustada para precisão visual.
 
 ## 📅 Diário de Bordo
 - **Dia 1:** Estrutura base e lógica de cálculo.
-- **Dia 2:** Implementação do tema Radar do Dragão e sistema de Power On/Off.
-- **Dia 3 (Amanhã):** Planejando efeitos de glitch e melhorias sonoras.
+- **Dia 2:** Implementação do tema Radar do Dragão, sistema de Power e Easter Egg.
+- **Dia 3:** Adição da grade (grid) no display, animação de pulso neon e refatoração do botão de energia.
+- **Dia 4 (Amanhã):** Implementação de efeitos sonoros e feedback auditivo.
 
 ---
 Desenvolvido com ❤️ por [Gustavo](https://github.com/gustavodeoliveiradev) como parte de um projeto de estudos constante.

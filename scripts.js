@@ -24,11 +24,15 @@ const calculateResult = () => {
 function togglePower() {
     const radar = document.getElementById('radar');
     const pwrBtn = document.getElementById('pwr');
-
+    
     radar.classList.toggle('on');
-    pwrBtn.classList.toggle('active');
+    const isOn = radar.classList.contains('on');
 
-    if (radar.classList.contains('on')) {
+    // Troca o texto do botão usando ternário
+    pwrBtn.innerText = isOn ? "OFF" : "ON";
+    pwrBtn.classList.toggle('active');
+    
+    if (isOn) {
         moveRadarPoint();
     } else {
         clearDisplay();
