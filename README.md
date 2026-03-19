@@ -1,5 +1,10 @@
 # 🐉 Dragon Radar Calculator
 
+![Status](https://img.shields.io/badge/Status-Finalizado-brightgreen)
+![Language](https://img.shields.io/badge/Javascript-ES6+-yellow)
+![Style](https://img.shields.io/badge/CSS3-Grid%20%26%20Animations-orange)
+![Theme](https://img.shields.io/badge/Theme-Dragon%20Ball-red)
+
 Uma calculadora temática inspirada no Radar do Dragão de Dragon Ball. Este é um projeto de estudo focado em **CSS Grid**, **Animações Dinâmicas** e manipulação de **DOM com JavaScript**.
 
 > "Estudando para superar meus limites, estilo Gohan." ⚡
@@ -23,7 +28,7 @@ Este projeto segue a filosofia de **melhoria contínua**. Novas funcionalidades 
 - **Dia 1:** Estrutura base e lógica de cálculo.
 - **Dia 2:** Implementação do tema Radar do Dragão, sistema de Power e Easter Egg.
 - **Dia 3:** Adição da grade (grid) no display, animação de pulso neon e refatoração do botão de energia.
-- **Dia 4 (Amanhã):** Implementação de efeitos sonoros e feedback auditivo.
+- **Dia 4:** Implementação de Feedback Auditivo (Sons de Power On/Off e cálculos) e unificação da lógica de energia para performance.
 
 ---
 Desenvolvido com ❤️ por [Gustavo](https://github.com/gustavodeoliveiradev) como parte de um projeto de estudos constante.
