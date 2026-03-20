@@ -158,3 +158,55 @@ body {
 body:has(.calculator.on) #radar-point {
     opacity: 1;
 }
+
+#radar-point.found {
+    background: #ffcc00 !important;
+    box-shadow:
+        0 0 15px #fff,
+        0 0 30px #ffcc00,
+        0 0 45px rgba(255, 204, 0, 0.6);
+    transform: scale(1.5);
+    transition: 0.2s ease-out;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+.shake {
+    animation: shake 0.2s ease-in-out 0.2s;
+    color: #ff4c4c !important;
+}
+
+@keyframes pulse-find {
+    0% {
+        transform: scale(1.5);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.8);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(1.5);
+        opacity: 1;
+    }
+}
+
+#radar-point.found {
+    animation: pulse-find 0.5s infinite alternate;
+}
