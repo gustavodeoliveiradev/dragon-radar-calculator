@@ -1,125 +1,105 @@
-// --- 1. SELEÇÃO DE ELEMENTOS ---
-const display = document.getElementById('display');
-const radar = document.getElementById('radar');
-const pwrBtn = document.getElementById('pwr');
-const radarPoint = document.getElementById('radar-point');
+// --- 1. CONFIGURAÇÕES E SELETORES ---
+const elements = {
+    display: document.getElementById('display'),
+    radar: document.getElementById('radar'),
+    pwrBtn: document.getElementById('pwr'),
+    radarPoint: document.getElementById('radar-point')
+};
 
-// Sons
-const soundPowerOn = document.getElementById('sound-power-on');
-const soundPowerOff = document.getElementById('sound-power-off');
-const soundEqual = document.getElementById('sound-equal');
-const soundError = document.getElementById('sound-error');
+const sounds = {
+    on: document.getElementById('sound-power-on'),
+    off: document.getElementById('sound-power-off'),
+    equal: document.getElementById('sound-equal'),
+    error: document.getElementById('sound-error')
+};
 
-let radarInterval; // Controle do movimento
+let radarInterval;
 
-// --- 2. FUNÇÕES BÁSICAS DA CALCULADORA ---
-const appendToDisplay = value => {
-    // Só funciona se o radar estiver ligado
-    if (radar.classList.contains('on')) {
-        display.value += value;
+// Helper para tocar sons (Evitando a repetição de código)
+const playAudio = (audio) => {
+    if (audio) {
+        audio.currentTime = 0;
+        audio.play();
     }
 };
 
-const clearDisplay = () => display.value = "";
+// --- 2. OPERAÇÕES DA CALCULADORA ---
+const appendToDisplay = value => {
+    if (elements.radar.classList.contains('on')) {
+        // Se o valor for 0 (inicial), substitui pelo novo valor
+        if (elements.display.value === "0") elements.display.value = "";
+        elements.display.value += value;
+    }
+};
 
-const deleteLast = () => display.value = display.value.slice(0, -1);
+const clearDisplay = () => elements.display.value = "0";
+
+const deleteLast = () => {
+    elements.display.value = elements.display.value.slice(0, -1);
+    if (elements.display.value === "") elements.display.value = "0";
+};
 
 const calculateResult = () => {
-    if (!radar.classList.contains('on')) return;
+    if (!elements.radar.classList.contains('on')) return;
 
     try {
-        // A "mágica" do cálculo
-        const result = new Function(`return ${display.value}`)();
+        const mathExpr = elements.display.value;
+        const result = new Function(`return ${mathExpr}`)();
 
         if (result === Infinity || isNaN(result)) throw new Error();
 
-        display.value = result;
-        
-        if (soundEqual) {
-            soundEqual.currentTime = 0;
-            soundEqual.play();
-        }
+        elements.display.value = result;
+        playAudio(sounds.equal);
 
-        // Efeito: Esfera Encontrada (Brilho no ponto por 1s)
-        radarPoint.classList.add('found');
-        setTimeout(() => radarPoint.classList.remove('found'), 1000);
+        // Feedback Visual: Brilho da Esfera
+        elements.radarPoint.classList.add('found');
+        setTimeout(() => elements.radarPoint.classList.remove('found'), 1000);
 
     } catch (e) {
-        display.value = "ERRO";
-        display.classList.add('shake');
-        
-        if (soundError) {
-            soundError.currentTime = 0;
-            soundError.play();
-        }
-        
-        setTimeout(() => display.classList.remove('shake'), 500);
+        elements.display.value = "ERRO";
+        elements.display.classList.add('shake');
+        playAudio(sounds.error);
+        setTimeout(() => elements.display.classList.remove('shake'), 500);
     }
 };
 
-// --- 3. SUPORTE AO TECLADO (PC) ---
-document.addEventListener('keydown', (event) => {
-    if (!radar.classList.contains('on')) return;
-
-    const key = event.key;
-
-    // Números e Operadores (usando RegEx para validar)
-    if (/[0-9+\-*/.]/.test(key)) {
-        appendToDisplay(key);
-    }
-    // Enter para calcular
-    else if (key === 'Enter') {
-        event.preventDefault(); 
-        calculateResult();
-    }
-    // Backspace para apagar um
-    else if (key === 'Backspace') {
-        deleteLast();
-    }
-    // Escape para limpar tudo
-    else if (key === 'Escape') {
-        clearDisplay();
-    }
-});
-
-// --- 4. LÓGICA DO RADAR E ENERGIA ---
-function togglePower() {
-    radar.classList.toggle('on');
-    const isOn = radar.classList.contains('on');
-
-    // Troca o texto do botão (Ternário)
-    pwrBtn.innerText = isOn ? "OFF" : "ON";
+// --- 3. LÓGICA DO AMBIENTE (RADAR) ---
+const togglePower = () => {
+    const isOn = elements.radar.classList.toggle('on');
+    elements.pwrBtn.innerText = isOn ? "OFF" : "ON";
+    elements.pwrBtn.classList.toggle('active');
 
     if (isOn) {
-        if (soundPowerOn) {
-            soundPowerOn.currentTime = 0;
-            soundPowerOn.play();
-        }
+        playAudio(sounds.on);
         startRadarMovement();
     } else {
-        if (soundPowerOff) {
-            soundPowerOff.currentTime = 0;
-            soundPowerOff.play();
-        }
+        playAudio(sounds.off);
         stopRadarMovement();
         clearDisplay();
     }
-}
+};
 
-// --- 5. MOVIMENTAÇÃO DO PONTO ---
-function startRadarMovement() {
-    stopRadarMovement(); // Limpa intervalos antigos
-
+const startRadarMovement = () => {
+    stopRadarMovement();
     radarInterval = setInterval(() => {
-        // O ponto flutua pela tela
         const x = Math.random() * (window.innerWidth - 50);
         const y = Math.random() * (window.innerHeight - 50);
 
-        radarPoint.style.left = `${x}px`;
-        radarPoint.style.top = `${y}px`;
+        elements.radarPoint.style.left = `${x}px`;
+        elements.radarPoint.style.top = `${y}px`;
     }, 4000);
-}
+};
 
-function stopRadarMovement() {
-    clearInterval(radarInterval);
-}
+const stopRadarMovement = () => clearInterval(radarInterval);
+
+// --- 4. EVENT LISTENERS (INTERAÇÕES) ---
+
+// Teclado Físico
+document.addEventListener('keydown', (e) => {
+    if (!elements.radar.classList.contains('on')) return;
+
+    if (/[0-9+\-*/.]/.test(e.key)) appendToDisplay(e.key);
+    if (e.key === 'Enter') { e.preventDefault(); calculateResult(); }
+    if (e.key === 'Backspace') deleteLast();
+    if (e.key === 'Escape') clearDisplay();
+});
